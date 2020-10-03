@@ -1,6 +1,6 @@
 const express = require('express');
 const volleyball = require('volleyball');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 
 const app = express();
 
@@ -15,21 +15,11 @@ function notFound(req,res,next) {
     next(error);
 }
 
-function errorHandler(){
+function errorHandler(err,req,res,next){
     res.status(res.statusCode || 500);
     res.json({
-        message: errorHandler.message,
-function notFound(req,res,next) {
-    res.status(404);
-    const error = new Eroor('not Found', req.originUrl);
-    next(error);
-}
-
-function errorHandler(){
-    res.status(res.statusCode || 500);
-    res.json({
-        message: errorHandler.message,
-        stack: error.stack
+        message: err.message,
+        stack: err.stack
     });
 }
 
