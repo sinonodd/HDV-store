@@ -16,7 +16,7 @@ const schema = Joi.object({
     role_id: Joi.number().integer()
 
 })
-module.exports
+module.exports = {
 
 findByEmail(email){
     return db('usr').where('email',email).first();
@@ -28,4 +28,6 @@ insert(user){
     if(result.error ===null){
         return db('usr').insert(user);
     }else{ return Promise.reject(result.error)}
-}    
+} 
+
+};
