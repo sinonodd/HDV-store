@@ -4,7 +4,10 @@ const bcrypt = require('bcrypt');
 require('dotenv').config();
 const app = express();
 const auth = require('./auth')
+const passport = require('passport');
+
 app.use(volleyball);
+app.use(passport.initialize());
 
 app.get('/', (req,res) => {res.json({message:"Hello express" })});
 
