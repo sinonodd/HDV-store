@@ -6,7 +6,6 @@ const schema = Joi.object({
     username: Joi.string().required(),
     phone: Joi.number().integer(),
     google_id: Joi.string(),
-    banned: Joi.boolean().required(),
     email: Joi.string().email(),
     img_url: Joi.string().uri({
         scheme: [
@@ -22,6 +21,9 @@ findByEmail(email){
     return db('usr').where('email',email).first();
 
 },
+update(id,user){
+    return db('usr').where('id',id).update(user);
+},    
 insert(user){
     return db('usr').insert(user);
     const result = schema.validate(user, schema);
