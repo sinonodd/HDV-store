@@ -21,8 +21,9 @@ findByEmail(email){
     return db('usr').where('email',email).first();
 
 },
-update(id,user){
-    return db('usr').where('id',id).update(user);
+async update(id,user){
+    const rows = await db('usr').where('id',id).update(user, '*');
+     return rows[0];
 },    
 insert(user){
     return db('usr').insert(user);

@@ -20,17 +20,14 @@ passport.use(new GoogleStrategy({
       //return cb(err,user);
   //  });
     const email = profile.emails[0].value;
-    console.log(email)
-   let user = await users.findByEmail(email);
-   const googleUser = {
+    let user = await users.findByEmail(email);
+    const googleUser = {
       username: profile.displayName,
       email: email,
       google_id: profile.id,  
       img_url: profile.photos[0].value,
       role_id: 1
    };
-   console.log(googleUser);
-
     if(user){
       user = await users.update(user.id,googleUser);
     } else {
