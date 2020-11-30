@@ -5,17 +5,46 @@ require('dotenv').config();
 const app = express();
 const auth = require('./auth')
 const passport = require('passport');
-const {verfify} = require('./auth/utiles');
+const {verify} = require('./auth/utiles.js');
 
 app.use(volleyball);
 app.use(passport.initialize());
 
-function checkAuthHeaderSetUser(req,res,next) {
+// check autho
+async function checkAuthHeaderSetUser(req,res,next) {
     const authorization = req.get('authorization');
-    console.log(authorization);
+    if(authorization){
+        const token = authorization.split(" ")[1];
+        try{
+            const user = await verify(token);
+            req.user = user;
+            console.log(user);
+        }
+        catch(error){
+            console.error(error);
+        }
+    }
+    next();
 }
-
-app.get('/', (req,res) => {res.json({message:"Hello express" })});
+async function checkAuthHeaderSetUserUnauthorized(req,res,next) {
+    const authorization = req.get('authorization');
+    if(authorization){
+        const token = authorization.split(" ")[1];
+        try{
+            const user = await verify(token);
+            req.user = user;
+            return next();
+        }
+        catch(error){
+            console.error(error);
+        }
+    }
+    res.status(401);
+    next(new Error('un-authorized'));
+}
+//header check middlware
+app.use(checkAuthHeaderSetUser);
+app.get('/', checkAuthHeaderSetUserUnauthorized, (req,res) => {res.json({message:"Hello express" })});
 
 
 function notFound(req,res,next) {
@@ -38,6 +67,5 @@ const port = process.env.PORT ||5000;
 app.listen(port,() => {console.log('listening on port ', port)
 });
 
-app.use(checkAuthHeaderSetUser);
 app.use(notFound);
 app.use(errorHandler);
