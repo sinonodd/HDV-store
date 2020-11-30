@@ -44,7 +44,7 @@ async function checkAuthHeaderSetUserUnauthorized(req,res,next) {
 }
 //header check middlware
 app.use(checkAuthHeaderSetUser);
-app.get('/', checkAuthHeaderSetUserUnauthorized, (req,res) => {res.json({message:"Hello express" })});
+app.get('/', (req,res) => {res.json({message:"Hello express" })});
 
 
 function notFound(req,res,next) {
