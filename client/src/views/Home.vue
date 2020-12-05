@@ -6,7 +6,7 @@
         <hr class="my-4">
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
         <p class="lead">
-          <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+          <a class="btn btn-primary btn-lg" :href="getLoginUrl" role="button">Login with google</a>
         </p>
      </div>
   </div>
@@ -16,6 +16,13 @@
 
 export default {
   name: 'Home',
-  
+      computed: {
+        getLoginUrl() {
+          if(window.location.hostname === 'localhost'){
+            return 'http://localhost:5000/auth/google';
+          } else {return 'https://hdv-store-api/auth/google';}
+        }
+     }
+
 };
 </script>
