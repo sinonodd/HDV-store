@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import {isAdmin} from '../api';
 
 Vue.use(Vuex);
 
@@ -23,6 +24,10 @@ export default new Vuex.Store({
       const base64 = base64Url.replace('-', '+').replace('_', '/');
       const user = JSON.parse(window.atob(base64));
       commit('setUser', user)
+    },
+    async isAdmin() {
+      const reslut = await isAdmin();
+      console.log(result);
     }
   },
   modules: {

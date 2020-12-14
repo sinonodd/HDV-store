@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from '../views/Home.vue';
 import LoginToken from '../views/LoginToken.vue';
 import Forum from '../views/Forum.vue';
+import Admin from '../views/Admin.vue';
 
   import store from '../store';
 
@@ -19,6 +20,11 @@ import Forum from '../views/Forum.vue';
       path: '/forum',
       name: 'forum',
       component: Forum,
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: Admin,
     },
     {
       path: '/login/token/:token',

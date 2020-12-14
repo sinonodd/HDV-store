@@ -4,6 +4,13 @@ const router = express.Router();
 require('../passport/google.js');
 const {create} = require('./utiles.js');
 
+router.get('/isAdmin', (req,res) => {
+  if (req.user) {
+    if (req.user.role_id ===3) {
+      res.json({isAdmin: true});
+    }
+  } res.json({ isAdmin: false});
+});
 router.get('/google',
   passport.authenticate('google', { scope: ['profile','email'] }));
 
