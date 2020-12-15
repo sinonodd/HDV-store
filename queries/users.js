@@ -27,14 +27,11 @@ findByEmail(email){
 },
 async update(id,user){
     const rows = await db('usr').where('id',id).update(user, '*');
-     return rows[0];
+        return rows[0];
 },    
 async insert(user){
-    const result = schema.validate(user, schema);
-    if (result.error ===null) {
-       const rows = await db('usr').insert(user, '*');
-       return rows[0]; 
-    } else { return Promise.reject(result.error)}
+    const rows = await db('usr').insert(user, '*');
+        return rows[0]; 
 } 
 
 };

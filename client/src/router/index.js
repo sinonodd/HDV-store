@@ -25,6 +25,12 @@ import Admin from '../views/Admin.vue';
       path: '/admin',
       name: 'admin',
       component: Admin,
+      beforEnter(to, from, next) {
+        if (store.getters.isLoggedIn) {
+          next();
+        }
+        next('/');
+      },
     },
     {
       path: '/login/token/:token',

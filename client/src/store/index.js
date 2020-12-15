@@ -19,15 +19,19 @@ export default new Vuex.Store({
   },
   actions: {
     login({commit},token){
-      commit('setToken',token)
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace('-', '+').replace('_', '/');
-      const user = JSON.parse(window.atob(base64));
-      commit('setUser', user)
+      if (token) {
+        commit('setToken',token)
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace('-', '+').replace('_', '/');
+        const user = JSON.parse(window.atob(base64));
+        commit('setUser', user);
+      } else {
+        commit('setToken','');
+        commit('setUser',null);
+      }
     },
-    async isAdmin() {
-      const reslut = await isAdmin();
-      console.log(result);
+    async isAdmin({commit, state}) {
+      return state.user.id === 3;
     }
   },
   modules: {
